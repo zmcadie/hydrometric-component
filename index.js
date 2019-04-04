@@ -1,4 +1,7 @@
 const container = document.getElementById("container");
+container.style.fontFamily = "helvetica";
+container.style.fontSize = "12px";
+
 const content = document.createDocumentFragment();
 
 const gauge = document.createElement("div");
