@@ -4,8 +4,11 @@ container.style.fontSize = "12px";
 
 const content = document.createDocumentFragment();
 
+const widget = document.createElement("div");
+widget.style.cssText = "background: white; border: 1px solid #444; border-radius: 4px; padding: 10px; width: 80px;"
+
 const gauge = document.createElement("div");
-gauge.style.cssText = "border: 1px solid #444; border-radius: 2px; height: 208px; overflow: hidden; position: relative; width: 50px; margin: 0 auto; position: relative;";
+gauge.style.cssText = "background: white; border: 1px solid #444; border-radius: 2px; height: 208px; overflow: hidden; position: relative; width: 100%; margin: 0 auto; position: relative;";
 
 const markerSpacing = 208 / 16;
 
@@ -56,11 +59,11 @@ marker3q3.style.cssText = `line-height: 20px; margin-left: -1px; position: absol
 marker3q3.innerText = "\u002d";
 
 const level = document.createElement("div");
-level.style.cssText = "background: #2af8; bottom: 0; height: 0; left: 0; position: absolute; transition: height 1.5s ease-in-out; width: 50px;";
+level.style.cssText = "background: #2af8; bottom: 0; height: 0; left: 0; position: absolute; transition: height 1.5s ease-in-out; width: 100%;";
 
 const readout = document.createElement("div");
 readout.innerText = "0.000 m";
-readout.style.cssText = "text-align: center;";
+readout.style.cssText = "background: white; border: 1px solid #444; border-radius: 2px; margin-top: 10px; padding: 5px 0; text-align: center; width: 100%";
 
 gauge.appendChild(level);
 gauge.appendChild(marker0q1);
@@ -78,8 +81,9 @@ gauge.appendChild(marker3);
 gauge.appendChild(marker3q1);
 gauge.appendChild(marker3h);
 gauge.appendChild(marker3q3);
-content.appendChild(gauge);
-content.appendChild(readout);
+widget.appendChild(gauge);
+widget.appendChild(readout);
+content.appendChild(widget);
 container.appendChild(content);
 
 fetch("https://us-central1-hydrometric-api.cloudfunctions.net/fetchWaterLevel?stationId=08HA009&timezone=pst")
