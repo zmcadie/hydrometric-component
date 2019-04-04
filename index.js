@@ -2,14 +2,79 @@ const container = document.getElementById("container");
 const content = document.createDocumentFragment();
 
 const gauge = document.createElement("div");
-gauge.style.cssText = "border: 1px solid #444; border-radius: 2px; height: 200px; overflow: hidden; position: relative; width: 50px; margin: 0 auto;";
+gauge.style.cssText = "border: 1px solid #444; border-radius: 2px; height: 208px; overflow: hidden; position: relative; width: 50px; margin: 0 auto; position: relative;";
+
+const markerSpacing = 208 / 16;
+
+const marker0q1 = document.createElement("div");
+marker0q1.style.cssText = `line-height: 20px; margin-left: -1px; position: absolute; top: ${markerSpacing * 15 - 10}px;`;
+marker0q1.innerText = "\u002d";
+const marker0h = document.createElement("div");
+marker0h.style.cssText = `line-height: 20px; margin-left: -1px; position: absolute; top: ${markerSpacing * 14 - 10}px;`;
+marker0h.innerText = "\u2013";
+const marker0q3 = document.createElement("div");
+marker0q3.style.cssText = `line-height: 20px; margin-left: -1px; position: absolute; top: ${markerSpacing * 13 - 10}px;`;
+marker0q3.innerText = "\u002d";
+const marker1 = document.createElement("div");
+marker1.style.cssText = `line-height: 20px; margin-left: -1px; position: absolute; top: ${markerSpacing * 12 - 10}px;`;
+marker1.innerText = "\u2014 1.00";
+const marker1q1 = document.createElement("div");
+marker1q1.style.cssText = `line-height: 20px; margin-left: -1px; position: absolute; top: ${markerSpacing * 11 - 10}px;`;
+marker1q1.innerText = "\u002d";
+const marker1h = document.createElement("div");
+marker1h.style.cssText = `line-height: 20px; margin-left: -1px; position: absolute; top: ${markerSpacing * 10 - 10}px;`;
+marker1h.innerText = "\u2013";
+const marker1q3 = document.createElement("div");
+marker1q3.style.cssText = `line-height: 20px; margin-left: -1px; position: absolute; top: ${markerSpacing * 9 - 10}px;`;
+marker1q3.innerText = "\u002d";
+const marker2 = document.createElement("div");
+marker2.style.cssText = `line-height: 20px; margin-left: -1px; position: absolute; top: ${markerSpacing * 8 - 10}px;`;
+marker2.innerText = "\u2014 2.00";
+const marker2q1 = document.createElement("div");
+marker2q1.style.cssText = `line-height: 20px; margin-left: -1px; position: absolute; top: ${markerSpacing * 7 - 10}px;`;
+marker2q1.innerText = "\u002d";
+const marker2h = document.createElement("div");
+marker2h.style.cssText = `line-height: 20px; margin-left: -1px; position: absolute; top: ${markerSpacing * 6 - 10}px;`;
+marker2h.innerText = "\u2013";
+const marker2q3 = document.createElement("div");
+marker2q3.style.cssText = `line-height: 20px; margin-left: -1px; position: absolute; top: ${markerSpacing * 5 - 10}px;`;
+marker2q3.innerText = "\u002d";
+const marker3 = document.createElement("div");
+marker3.style.cssText = `line-height: 20px; margin-left: -1px; position: absolute; top: ${markerSpacing * 4 - 10}px`;
+marker3.innerText = "\u2014 3.00";
+const marker3q1 = document.createElement("div");
+marker3q1.style.cssText = `line-height: 20px; margin-left: -1px; position: absolute; top: ${markerSpacing * 3 - 10}px;`;
+marker3q1.innerText = "\u002d";
+const marker3h = document.createElement("div");
+marker3h.style.cssText = `line-height: 20px; margin-left: -1px; position: absolute; top: ${markerSpacing * 2 - 10}px`;
+marker3h.innerText = "\u2013";
+const marker3q3 = document.createElement("div");
+marker3q3.style.cssText = `line-height: 20px; margin-left: -1px; position: absolute; top: ${markerSpacing * 1 - 10}px;`;
+marker3q3.innerText = "\u002d";
+
 const level = document.createElement("div");
 level.style.cssText = "background: #2af8; bottom: 0; height: 0; left: 0; position: absolute; transition: height 1.5s ease-in-out; width: 50px;";
+
 const readout = document.createElement("div");
 readout.innerText = "0.000 m";
 readout.style.cssText = "text-align: center;";
 
 gauge.appendChild(level);
+gauge.appendChild(marker0q1);
+gauge.appendChild(marker0h);
+gauge.appendChild(marker0q3);
+gauge.appendChild(marker1);
+gauge.appendChild(marker1q1);
+gauge.appendChild(marker1h);
+gauge.appendChild(marker1q3);
+gauge.appendChild(marker2);
+gauge.appendChild(marker2q1);
+gauge.appendChild(marker2h);
+gauge.appendChild(marker2q3);
+gauge.appendChild(marker3);
+gauge.appendChild(marker3q1);
+gauge.appendChild(marker3h);
+gauge.appendChild(marker3q3);
 content.appendChild(gauge);
 content.appendChild(readout);
 container.appendChild(content);
@@ -17,6 +82,6 @@ container.appendChild(content);
 fetch("https://us-central1-hydrometric-api.cloudfunctions.net/fetchWaterLevel?stationId=08HA009&timezone=pst")
   .then(res => res.json())
   .then(res => {
-    level.style.height = `${(res.level / 4) * 200}px`;
+    level.style.height = `${(res.level / 4) * 208}px`;
     readout.innerText = `${res.level} m`
   });
