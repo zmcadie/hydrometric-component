@@ -7,7 +7,7 @@ const { stationid, timezone } = container.dataset;
 const content = document.createDocumentFragment();
 
 const widget = document.createElement("div");
-widget.style.cssText = "background: white; border: 1px solid #444; border-radius: 4px; padding: 10px; width: 80px;"
+widget.style.cssText = "background: white; border: 1px solid #444; border-radius: 4px; padding: 10px 12px 10px 10px; width: 80px;"
 
 const gauge = document.createElement("div");
 gauge.style.cssText = "background: white; border: 1px solid #444; border-radius: 2px; height: 208px; overflow: hidden; position: relative; width: 100%; margin: 0 auto; position: relative;";
