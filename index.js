@@ -2,6 +2,8 @@ const container = document.getElementById("container");
 container.style.fontFamily = "helvetica";
 container.style.fontSize = "12px";
 
+const { stationid, timezone } = container.dataset;
+
 const content = document.createDocumentFragment();
 
 const widget = document.createElement("div");
@@ -86,7 +88,7 @@ widget.appendChild(readout);
 content.appendChild(widget);
 container.appendChild(content);
 
-fetch("https://us-central1-hydrometric-api.cloudfunctions.net/fetchWaterLevel?stationId=08HA009&timezone=pst")
+fetch(`https://us-central1-hydrometric-api.cloudfunctions.net/fetchWaterLevel?stationId=${stationid}&timezone=${timezone}`)
   .then(res => res.json())
   .then(res => {
     level.style.height = `${(res.level / 4) * 208}px`;
