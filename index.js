@@ -14,51 +14,28 @@ gauge.style.cssText = "background: white; border: 1px solid #444; border-radius:
 
 const markerSpacing = 208 / 16;
 
-const marker0q1 = document.createElement("div");
-marker0q1.style.cssText = `line-height: 20px; margin-left: -1px; position: absolute; top: ${markerSpacing * 15 - 11}px;`;
-marker0q1.innerText = "\u002d";
-const marker0h = document.createElement("div");
-marker0h.style.cssText = `line-height: 20px; margin-left: -1px; position: absolute; top: ${markerSpacing * 14 - 11}px;`;
-marker0h.innerText = "\u2013";
-const marker0q3 = document.createElement("div");
-marker0q3.style.cssText = `line-height: 20px; margin-left: -1px; position: absolute; top: ${markerSpacing * 13 - 11}px;`;
-marker0q3.innerText = "\u002d";
-const marker1 = document.createElement("div");
-marker1.style.cssText = `line-height: 20px; margin-left: -1px; position: absolute; top: ${markerSpacing * 12 - 11}px;`;
-marker1.innerText = "\u2014 1.00";
-const marker1q1 = document.createElement("div");
-marker1q1.style.cssText = `line-height: 20px; margin-left: -1px; position: absolute; top: ${markerSpacing * 11 - 11}px;`;
-marker1q1.innerText = "\u002d";
-const marker1h = document.createElement("div");
-marker1h.style.cssText = `line-height: 20px; margin-left: -1px; position: absolute; top: ${markerSpacing * 10 - 11}px;`;
-marker1h.innerText = "\u2013";
-const marker1q3 = document.createElement("div");
-marker1q3.style.cssText = `line-height: 20px; margin-left: -1px; position: absolute; top: ${markerSpacing * 9 - 11}px;`;
-marker1q3.innerText = "\u002d";
-const marker2 = document.createElement("div");
-marker2.style.cssText = `line-height: 20px; margin-left: -1px; position: absolute; top: ${markerSpacing * 8 - 11}px;`;
-marker2.innerText = "\u2014 2.00";
-const marker2q1 = document.createElement("div");
-marker2q1.style.cssText = `line-height: 20px; margin-left: -1px; position: absolute; top: ${markerSpacing * 7 - 11}px;`;
-marker2q1.innerText = "\u002d";
-const marker2h = document.createElement("div");
-marker2h.style.cssText = `line-height: 20px; margin-left: -1px; position: absolute; top: ${markerSpacing * 6 - 11}px;`;
-marker2h.innerText = "\u2013";
-const marker2q3 = document.createElement("div");
-marker2q3.style.cssText = `line-height: 20px; margin-left: -1px; position: absolute; top: ${markerSpacing * 5 - 11}px;`;
-marker2q3.innerText = "\u002d";
-const marker3 = document.createElement("div");
-marker3.style.cssText = `line-height: 20px; margin-left: -1px; position: absolute; top: ${markerSpacing * 4 - 11}px`;
-marker3.innerText = "\u2014 3.00";
-const marker3q1 = document.createElement("div");
-marker3q1.style.cssText = `line-height: 20px; margin-left: -1px; position: absolute; top: ${markerSpacing * 3 - 11}px;`;
-marker3q1.innerText = "\u002d";
-const marker3h = document.createElement("div");
-marker3h.style.cssText = `line-height: 20px; margin-left: -1px; position: absolute; top: ${markerSpacing * 2 - 11}px`;
-marker3h.innerText = "\u2013";
-const marker3q3 = document.createElement("div");
-marker3q3.style.cssText = `line-height: 20px; margin-left: -1px; position: absolute; top: ${markerSpacing * 1 - 11}px;`;
-marker3q3.innerText = "\u002d";
+function createMark(pos, type, label) {
+  const mark = document.createElement("div");
+  mark.style.cssText = `line-height: 20px; margin-left: -1px; position: absolute; top: ${markerSpacing * pos - 11}px;`;
+  mark.innerText = `${type === "q" ? "\u002d" : type === "h" ? "\u2013" : "\u2014"} ${label ? label : ""}`;
+  return mark;
+}
+
+const marker0q1 = createMark(15, "q");
+const marker0h = createMark(14, "h");
+const marker0q3 = createMark(13, "q");
+const marker1 = createMark(12, "f", "1.00");
+const marker1q1 = createMark(11, "q");
+const marker1h = createMark(10, "h");
+const marker1q3 = createMark(9, "q");
+const marker2 = createMark(8, "f", "2.00");
+const marker2q1 = createMark(7, "q");
+const marker2h = createMark(6, "h");
+const marker2q3 = createMark(5, "q");
+const marker3 = createMark(4, "f", "3.00");
+const marker3q1 = createMark(3, "q");
+const marker3h = createMark(2, "h");
+const marker3q3 = createMark(1, "q");
 
 const level = document.createElement("div");
 level.style.cssText = "background: #2af8; bottom: 0; height: 0; left: 0; position: absolute; transition: height 1.5s ease-in-out; width: 100%;";
