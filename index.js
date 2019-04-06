@@ -2,16 +2,19 @@ const container = document.getElementById("container");
 container.style.fontFamily = "helvetica";
 container.style.fontSize = "12px";
 
-const { stationid, timezone, gaugemax, gaugescale, gaugeheight } = container.dataset;
+const { stationid, stationname, timezone, sealevel, gaugemax, gaugescale, gaugeheight } = container.dataset;
 
 const content = document.createDocumentFragment();
 
 const widget = document.createElement("div");
-widget.style.cssText = "background: white; border: 1px solid #444; border-radius: 4px; padding: 10px 12px 10px 10px; width: 80px;"
+widget.style.cssText = "background: white; border: 1px solid #444; border-radius: 4px; padding: 10px; width: auto; display: inline-flex;"
 
 const gauge = document.createElement("div");
-gauge.style.cssText = "background: white; border: 1px solid #444; border-radius: 2px; overflow: hidden; position: relative; width: 100%; margin: 0 auto; position: relative;";
-gauge.style.height = gaugeheight;
+gauge.style.cssText = "width: 80px;";
+
+const meter = document.createElement("div");
+meter.style.cssText = "background: white; border: 1px solid #444; border-radius: 2px; overflow: hidden; position: relative; width: calc(100% - 2px); margin: 0 auto; position: relative;";
+meter.style.height = gaugeheight;
 
 const markerNum = gaugemax * gaugescale;
 const markerSpacing = gaugeheight / markerNum;
@@ -36,12 +39,37 @@ level.style.cssText = "background: #2af8; bottom: 0; height: 0; left: 0; positio
 
 const readout = document.createElement("div");
 readout.innerText = "0.000 m";
-readout.style.cssText = "background: white; border: 1px solid #444; border-radius: 2px; margin-top: 10px; padding: 5px 0; text-align: center; width: 100%";
+readout.style.cssText = "background: white; border: 1px solid #444; border-radius: 2px; margin-top: 10px; padding: 5px 0; text-align: center; width: calc(100% - 2px);";
 
-gauge.appendChild(level);
-gauge.appendChild(markers);
+const stationInfo = document.createElement("div");
+stationInfo.style.cssText = "margin-left: 10px;";
+
+function createInfoItem(label, text) {
+  const infoItem = document.createElement("div");
+  infoItem.style.cssText = "margin-bottom: 8px;";
+  const labelEl = document.createElement("div");
+  labelEl.style.cssText = "font-weight: bold; font-size: 10px; color: #444; margin-bottom: 2px;";
+  labelEl.innerText = label;
+  const textEl = document.createElement("div");
+  textEl.innerText = text;
+  infoItem.appendChild(labelEl);
+  infoItem.appendChild(textEl);
+  return infoItem;
+}
+
+const infoName = createInfoItem("STATION NAME", stationname);
+const infoId = createInfoItem("STATION ID", stationid);
+const infoBaseline = createInfoItem("BASELINE", `Reading is taken ${sealevel} m above sea level`);
+
+gauge.appendChild(meter);
+meter.appendChild(level);
+meter.appendChild(markers);
+gauge.appendChild(readout);
+stationInfo.appendChild(infoName);
+stationInfo.appendChild(infoId);
+stationInfo.appendChild(infoBaseline);
 widget.appendChild(gauge);
-widget.appendChild(readout);
+widget.appendChild(stationInfo);
 content.appendChild(widget);
 container.appendChild(content);
 
