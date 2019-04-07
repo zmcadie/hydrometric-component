@@ -12,16 +12,6 @@
     nst: -3.5
   };
 
-  const getUTC = now => {
-    var timezoneOffset = now.getTimezoneOffset() * 60000;
-    return now.getTime() + timezoneOffset;
-  }
-
-  const getLocalTime = (date, timezone) => {
-    const utc = getUTC(date);
-    return utc + (3600000 * timezones[timezone]);
-  }
-
   const { stationid, stationname, timezone, sealevel, gaugemax, gaugescale, gaugeheight } = container.dataset;
 
   const content = document.createDocumentFragment();
