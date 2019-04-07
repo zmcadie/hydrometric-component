@@ -81,8 +81,8 @@ function createInfoItem(label, text) {
 const infoName = createInfoItem("STATION NAME", stationname);
 const infoId = createInfoItem("STATION ID", stationid);
 const infoBaseline = createInfoItem("BASELINE", `Reading is taken ${sealevel} m above sea level`);
-const infoSealevel = createInfoItem("RELATIVE", "-");
-const infoTime = createInfoItem("TIME", "-");
+const infoSealevel = createInfoItem("RELATIVE", `Primary water level is ${sealevel} m above sea level`);
+const infoTime = createInfoItem("TIME", `Latest reading taken at 0:00 a.m. ${timezone.toUpperCase()}`);
 
 gauge.appendChild(meter);
 meter.appendChild(level);
@@ -105,6 +105,6 @@ fetch(`https://us-central1-hydrometric-api.cloudfunctions.net/fetchWaterLevel?st
     readout.innerText = `${res.level} m`
     const sealevelText = infoSealevel.getElementsByClassName("info-text")[0];
     const timeText = infoTime.getElementsByClassName("info-text")[0];
-    sealevelText.innerText = `${stationname} is ${Math.round((parseFloat(sealevel) + parseFloat(res.level)) * 1000) / 1000} m above sea level`;
-    timeText.innerText = `Latest reading taken at ${new Date(res.date + (3600000 * timezones[timezone])).toLocaleTimeString('en-CA')} ${timezone.toUpperCase()}`;
+    sealevelText.innerText = `Primary water level is ${Math.round((parseFloat(sealevel) + parseFloat(res.level)) * 1000) / 1000} m above sea level`;
+    timeText.innerText = `Latest reading taken at ${new Date(res.date + (3600000 * timezones[timezone])).toLocaleTimeString('en-CA', { hour: '2-digit', minute:'2-digit' })} ${timezone.toUpperCase()}`;
   });
