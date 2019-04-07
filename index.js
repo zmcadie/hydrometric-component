@@ -63,23 +63,23 @@ readout.style.cssText = "background: white; border: 1px solid #444; border-radiu
 const stationInfo = document.createElement("div");
 stationInfo.style.cssText = "margin-left: 10px;";
 
-function createInfoItem(label, text) {
+function createInfoItem(label, value) {
   const infoItem = document.createElement("div");
   infoItem.style.cssText = "margin-bottom: 8px;";
   const labelEl = document.createElement("div");
   labelEl.classList.add("info-label");
   labelEl.style.cssText = "font-weight: bold; font-size: 10px; color: #444; margin-bottom: 2px;";
   labelEl.innerText = label;
-  const textEl = document.createElement("div");
-  textEl.classList.add("info-text");
-  textEl.innerText = text;
+  const valueEl = document.createElement("div");
+  valueEl.classList.add("info-text");
+  valueEl.innerHTML = value;
   infoItem.appendChild(labelEl);
-  infoItem.appendChild(textEl);
+  infoItem.appendChild(valueEl);
   return infoItem;
 }
 
 const infoName = createInfoItem("STATION NAME", stationname);
-const infoId = createInfoItem("STATION ID", stationid);
+const infoId = createInfoItem("STATION ID", `<a target="_blank" href="https://wateroffice.ec.gc.ca/report/real_time_e.html?stn=${stationid}">${stationid}</a>`);
 const infoBaseline = createInfoItem("BASELINE", `Reading is taken ${sealevel} m above sea level`);
 const infoSealevel = createInfoItem("RELATIVE", `Primary water level is ${sealevel} m above sea level`);
 const infoTime = createInfoItem("TIME", `Latest reading taken at 0:00 a.m. ${timezone.toUpperCase()}`);
