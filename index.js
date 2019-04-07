@@ -73,7 +73,7 @@
   const infoId = createInfoItem("STATION ID", `<a target="_blank" href="https://wateroffice.ec.gc.ca/report/real_time_e.html?stn=${stationid}">${stationid}</a>`);
   const infoBaseline = createInfoItem("BASELINE", `Reading is taken ${sealevel} m above sea level`);
   const infoSealevel = createInfoItem("RELATIVE", `Primary water level is ${sealevel} m above sea level`);
-  const infoTime = createInfoItem("TIME", `Latest reading taken at 0:00 a.m. ${timezone.toUpperCase()}`);
+  const infoTime = createInfoItem("TIME", `Latest reading taken at 0:00 AM ${timezone.toUpperCase()}`);
 
   gauge.appendChild(meter);
   meter.appendChild(level);
@@ -97,6 +97,6 @@
       const sealevelText = infoSealevel.getElementsByClassName("info-text")[0];
       const timeText = infoTime.getElementsByClassName("info-text")[0];
       sealevelText.innerText = `Primary water level is ${Math.round((parseFloat(sealevel) + parseFloat(res.level)) * 1000) / 1000} m above sea level`;
-      timeText.innerText = `Latest reading taken at ${new Date(res.date + (3600000 * timezones[timezone])).toLocaleTimeString('en-CA', { hour: '2-digit', minute:'2-digit' })} ${timezone.toUpperCase()}`;
+      timeText.innerText = `Latest reading taken at ${new Date(res.date).toLocaleTimeString([], { timeZone: "UTC", hour: '2-digit', minute:'2-digit' })} ${timezone.toUpperCase()}`;
     });
 }());
