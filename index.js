@@ -2,6 +2,25 @@ const container = document.getElementById("container");
 container.style.fontFamily = "helvetica";
 container.style.fontSize = "12px";
 
+const timezones = {
+  pst: -8,
+  mst: -7,
+  cst: -6,
+  est: -5,
+  ast: -4,
+  nst: -3.5
+};
+
+const getUTC = now => {
+  var timezoneOffset = now.getTimezoneOffset() * 60000;
+  return now.getTime() + timezoneOffset;
+}
+
+const getLocalTime = (date, timezone) => {
+  const utc = getUTC(date);
+  return utc + (3600000 * timezones[timezone]);
+}
+
 const { stationid, stationname, timezone, sealevel, gaugemax, gaugescale, gaugeheight } = container.dataset;
 
 const content = document.createDocumentFragment();
@@ -48,9 +67,11 @@ function createInfoItem(label, text) {
   const infoItem = document.createElement("div");
   infoItem.style.cssText = "margin-bottom: 8px;";
   const labelEl = document.createElement("div");
+  labelEl.classList.add("info-label");
   labelEl.style.cssText = "font-weight: bold; font-size: 10px; color: #444; margin-bottom: 2px;";
   labelEl.innerText = label;
   const textEl = document.createElement("div");
+  textEl.classList.add("info-text");
   textEl.innerText = text;
   infoItem.appendChild(labelEl);
   infoItem.appendChild(textEl);
@@ -60,6 +81,8 @@ function createInfoItem(label, text) {
 const infoName = createInfoItem("STATION NAME", stationname);
 const infoId = createInfoItem("STATION ID", stationid);
 const infoBaseline = createInfoItem("BASELINE", `Reading is taken ${sealevel} m above sea level`);
+const infoSealevel = createInfoItem("RELATIVE", "-");
+const infoTime = createInfoItem("TIME", "-");
 
 gauge.appendChild(meter);
 meter.appendChild(level);
@@ -68,6 +91,8 @@ gauge.appendChild(readout);
 stationInfo.appendChild(infoName);
 stationInfo.appendChild(infoId);
 stationInfo.appendChild(infoBaseline);
+stationInfo.appendChild(infoSealevel);
+stationInfo.appendChild(infoTime);
 widget.appendChild(gauge);
 widget.appendChild(stationInfo);
 content.appendChild(widget);
@@ -78,4 +103,8 @@ fetch(`https://us-central1-hydrometric-api.cloudfunctions.net/fetchWaterLevel?st
   .then(res => {
     level.style.height = `${(res.level / gaugemax) * gaugeheight}px`;
     readout.innerText = `${res.level} m`
+    const sealevelText = infoSealevel.getElementsByClassName("info-text")[0];
+    const timeText = infoTime.getElementsByClassName("info-text")[0];
+    sealevelText.innerText = `${stationname} is ${Math.round((parseFloat(sealevel) + parseFloat(res.level)) * 1000) / 1000} m above sea level`;
+    timeText.innerText = `Latest reading taken at ${new Date(res.date + (3600000 * timezones[timezone])).toLocaleTimeString('en-CA')} ${timezone.toUpperCase()}`;
   });
