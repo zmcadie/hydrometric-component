@@ -61,7 +61,7 @@ readout.innerText = "0.000 m";
 readout.style.cssText = "background: white; border: 1px solid #444; border-radius: 2px; margin-top: 10px; padding: 5px 0; text-align: center; width: calc(100% - 2px);";
 
 const stationInfo = document.createElement("div");
-stationInfo.style.cssText = "margin-left: 10px;";
+stationInfo.style.cssText = "margin-left: 10px; border: 1px solid #444; border-radius: 2px; padding: 10px;";
 
 function createInfoItem(label, value) {
   const infoItem = document.createElement("div");
